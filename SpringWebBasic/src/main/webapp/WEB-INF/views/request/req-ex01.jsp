@@ -1,21 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 	
-	<h2>Request ÄÁÆ®·Ñ·¯¸¦ ÀÌ¿ëÇÑ ¿äÃ» Ã³¸® ÀÛ¾÷Áß~</h2>
+	<h2>Request ì»¨íŠ¸ë¡¤ëŸ¬ë¥¼ ì´ìš©í•œ ìš”ì²­ ì²˜ë¦¬ ì‘ì—…ì¤‘~</h2>
 	
 	<form action="/basic/request/basic01">
-		<input type='submit' value="GET ¿äÃ»!">
+		<input type='submit' value="GET ìš”ì²­!">
 	</form>
 	
 	<form action="/basic/request/basic01" method="post">
-		<input type='submit' value="POST ¿äÃ»!">
+		<input type='submit' value="POST ìš”ì²­!">
 	</form>
 	
 	
