@@ -1,6 +1,6 @@
 package com.spring.db.model;
 
-import org.springframework.stereotype.Service;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,16 +9,17 @@ import lombok.Setter;
 import lombok.ToString;
 
 /*
- 		CREATE TABLE jdbc_board(
-		board_no INT PRIMARY KEY AUTO_INCREMENT,
-	    writer VARCHAR(30) NOT NULL,
-	    title VARCHAR(100) NOT NULL,
-	    content VARCHAR(2000),
-	    reg_date DATETIME DEFAULT current_timestamp
-	);
-	*/
+ CREATE TABLE jdbc_board(
+	board_no INT PRIMARY KEY AUTO_INCREMENT,
+    writer VARCHAR(30) NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    content VARCHAR(2000),
+    reg_date DATETIME DEFAULT current_timestamp
+);
 
-@Getter @Setter @ ToString
+ */
+
+@Getter @Setter @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardVO {
@@ -27,5 +28,6 @@ public class BoardVO {
 	private String writer;
 	private String title;
 	private String content;
-	private String regDate;
+	private LocalDateTime regDate;
+
 }
