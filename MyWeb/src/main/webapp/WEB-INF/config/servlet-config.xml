@@ -14,7 +14,10 @@
 	<!-- css, img, js...의 파일 경로가 복잡할 때 사용한다.
 		jsp 파을 같은 데서 경로 긴거 일일히 쓰기 귀찮음. 그럴 때 선언. 
 		내부 경로를 숨겨주는 역할도 한다.-->
-	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/css/**" location="/resources/css/" />
+	<resources mapping="/js/**" location="/resources/js/" />
+	<resources mapping="/img/**" location="/resources/img/" />
+	<resources mapping="/fonts/**" location="/resources/fonts/" />
 
 	<!-- 
 		컨트롤러가 리턴한 문자열 앞, 뒤에 적절한 경로를 붙여서 
