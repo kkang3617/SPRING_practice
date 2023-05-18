@@ -4,7 +4,7 @@
     
 <mapper namespace="com.spring.myweb.user.mapper.IUserMapper">
 
-	<insert id="join">
+	<insert id="join"> <!-- 회원가입 -->
 		INSERT INTO users
 		(user_id, user_pw, user_name, user_phone1, user_phone2, user_email1,
 		user_email2, addr_basic, addr_detail, addr_zip_num)
@@ -12,12 +12,17 @@
 			#{userEmail1}, #{userEmail2}, #{addrBasic}, #{addrDetail}, #{addrZipNum})
 	</insert>
 	
-	<select id="idCheck" resultType="int">
-		SELECT count(*) FROM users
+	<select id="idCheck" resultType="int"> <!-- 리턴을 int로 받아야 한다. -->
+		SELECT count(*) 
+		FROM users
 		WHERE user_id = #{id}
 	</select>
 	
-	
+	<select id="login" resultType="user">
+		SELECT * FROM users
+		WHERE user_id=#{id}
+		AND user_pw=#{pw}
+	</select>
 	
 	<select id="getInfo" resultType="user">
 		SELECT * FROM users
@@ -26,9 +31,12 @@
 	
 	<update id="updateUser">
 		UPDATE users
-		SET user_pw=#{userPw}, user_name=#{userName}, user_phone1=#{userPhone1}, user_phone2=#{userPhone2}, user_email1=#{userEmail1},
-		user_email2=#{userEmail2}, addr_basic=#{addrBasic}, addr_detail=#{addrDetail}, addr_zip_num=#{addrZipNum}
-		WHERE user_id=#{userId}
+		SET user_pw = #{userPw}, user_name = #{userName},
+		user_phone1 = #{userPhone1}, user_phone2 = #{userPhone2}, 
+		user_email1 = #{userEmail1}, user_email2 = #{userEmail2},
+		addr_basic = #{addrBasic}, addr_detail = #{addrDetail},
+		addr_zip_num = #{addrZipNum}
+		WHERE user_id = #{userId}
 	</update>
 	
 	
