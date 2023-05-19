@@ -13,8 +13,8 @@
 		
 		<property name="javaMailProperties">
 			<props>
-				<prop key="mail.smtp.starttls.enable">true</prop>
-                <!-- <prop key="mail.smtp.ssl.enable">true</prop> -->
+				<!-- <prop key="mail.smtp.starttls.enable">true</prop> --> <!-- 구글로 보낼때 -->
+                <prop key="mail.smtp.ssl.enable">true</prop> <!-- 네이버로 보낼때 -->
                 <prop key="mail.smtp.auth">true </prop>
                 <prop key="mail.transport.protocol">smtp</prop>
                 <prop key="mail.debug">true</prop>
