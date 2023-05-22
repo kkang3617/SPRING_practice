@@ -1,5 +1,7 @@
 package com.spring.myweb.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.myweb.command.UserVO;
+import com.spring.myweb.freeboard.service.IFreeBoardService;
 import com.spring.myweb.user.service.IUserService;
 import com.spring.myweb.util.MailSenderService;
+import com.spring.myweb.util.PageCreator;
+import com.spring.myweb.util.PageVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,7 +28,8 @@ public class UserController {
 	
 	@Autowired
 	private IUserService service; //서비스에 자동으로 주입해줘~
-	
+	@Autowired
+	private IFreeBoardService boardService;
 	@Autowired
 	private MailSenderService mailService;
 	
@@ -72,8 +78,14 @@ public class UserController {
 	
 	//마이페이지 이동 요청
 	@GetMapping("/userMypage")
-	public void userMypage() {
+	public void userMypage(HttpSession session, Model model, PageVO vo) { //userMypage url요청이 들어오면 세션을 주세요. 모델도.
 		
+		//세션 데이터에서 id를 뽑아야 sql을 돌릴 수 있지요??
+		String id = (String) session.getAttribute("login"); //세션에서 로그인값을 받아옴.
+		vo.setLoginId(id);
+		PageCreator pc = new PageCreator(vo, boardService.getTotal(vo));
+		model.addAttribute("userInfo", service.getInfo(id, vo));
+		model.addAttribute("pc", pc);
 	}
 	
 	

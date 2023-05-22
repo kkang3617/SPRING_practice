@@ -26,12 +26,18 @@
 	 	</if>
 	 </sql>
 	
+	<sql id="myPage">
+		<if test="loginId != null">
+			WHERE writer = #{loginId}
+		</if>
+	</sql>
+	
 	<insert id="regist">
 		INSERT INTO freeboard
 		(title, writer, content)
 		VALUES(#{title}, #{writer}, #{content})
 	</insert>
-
+	
 	<select id="getList" resultType="board"> <!--freeboardvo로 리턴을 해.  -->
 		SELECT * FROM freeboard
 		<include refid="search" />
@@ -43,6 +49,7 @@
 		SELECT COUNT(*)
 		FROM freeboard
 		<include refid="search" />
+		<include refid="myPage" />
 	</select>
 	
 	<select id="getContent" resultType="board">
