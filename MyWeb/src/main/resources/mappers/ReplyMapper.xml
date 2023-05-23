@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
-<mapper namespace="com.spring.myweb.reply.mapper">
+<mapper namespace="com.spring.myweb.reply.mapper.IReplyMapper">
 
 	<insert id="replyRegist">
 		INSERT INTO freereply
@@ -23,7 +23,38 @@
 		WHERE bno = #{bno}
 	</select>
 	
+	<select id="pwCheck" resultType="String">
+		SELECT reply_pw
+		FROM freereply
+		WHERE rno = #{rno}
+	</select>
+	
+	<update id="update">
+		UPDATE freereply
+		SET reply = #{reply}, update_date = current_timestamp
+		WHERE rno = #{rno}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM freereply
+		WHERE rno = #{rno}
+	</delete>
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -17,7 +17,7 @@ public interface IReplyMapper {
 	int getTotal(int bno);
 	
 	//비밀번호 확인
-	boolean pwCheck(ReplyVO vo);
+	String pwCheck(int rno);
 	
 	//댓글 수정
 	void update(ReplyVO vo);

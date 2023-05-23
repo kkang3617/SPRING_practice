@@ -1,12 +1,15 @@
 package com.spring.myweb.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,10 +48,43 @@ public class ReplyController {
 		 댓글 목록 리스트와 전체 댓글 개수를 함께 전달할 예정.
 		 */
 
-		List<ReplyVO> list = service.getList(bno, pageNum);
-		int total = service.getTotal(bno);
-		return null;
+		List<ReplyVO> list = service.getList(bno, pageNum);  // 글목록
+		int total = service.getTotal(bno); //댓글이 몇개인지 알려주는 단순 숫자.
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", list);  //댓글 목록
+		map.put("total", total); //게시글에 달려있는 댓글의 총 개수
+		
+		return map; //목록과 글 개수를 맵에 담아 리턴하겠다.
 	}
+	
+	//댓글 수정 요청 
+	@PutMapping("/{rno}")
+	public String update(@PathVariable int rno, @RequestBody ReplyVO vo) {
+		vo.setRno(rno);
+		
+		if(service.pwCheck(vo)) {
+			service.update(vo);
+			return "updateSuccess";
+		} else {
+			return "pwFail";
+		}
+	}
+	
+	//댓글 삭제 요청
+	@DeleteMapping("/{rno}")
+	public String delete(@PathVariable int rno, @RequestBody ReplyVO vo) {
+		vo.setRno(rno);
+		
+		if(service.pwCheck(vo)) {
+			service.delete(rno);
+			return ("DeleteSuccess");
+		} else { 
+			return "pwFail";
+		}
+	}
+		
+	
 
 	
 	
