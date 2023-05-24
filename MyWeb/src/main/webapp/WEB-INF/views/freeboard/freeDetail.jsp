@@ -105,7 +105,7 @@
                     -->
 
                 </div>
-                <button type="button" class="form-control" id="moreList">더보기(페이징)</button>
+                <button type="button" class="form-control" id="moreList" style="display: none;">더보기(페이징)</button>
             </div>
         </div>
     </div>
@@ -223,8 +223,8 @@
                     let total = data.total; //총 댓글 수
                     let replyList = data.list; //댓글 리스트
 
-                    //응답 데이터의 길이가 0과 같거나 더 작으면 함수를 종료.
-                    if(replyList.length <= 0) return;
+                    // //응답 데이터의 길이가 0과 같거나 더 작으면 함수를 종료.
+                    // if(replyList.length <= 0) return;
 
                     //insert, update, delete 작업 후에는
                     //댓글 내용 태그를 누적하고 있는 strAdd 변수를 초기화해서
@@ -236,6 +236,9 @@
                         }
                         page = 1;
                     }
+
+                    //응답 데이터의 길이가 0과 같거나 더 작으면 함수를 종료.
+                    if(replyList.length <= 0) return;
 
                     //페이지번호 * 이번 요청으로 받은 댓글 수보다 전체 댓글 개수가 작다면 더보기 버튼은 없어도 된다.
                     console.log('현재 페이지: ' + page);
@@ -258,7 +261,7 @@
                         <div class='reply-content'>
                             <div class='reply-group'>
                                 <strong class='left'>` + replyList[i].replyId + ` </strong>
-                                <small class='left'>` + replyList[i].replyDate + `</small>
+                                <small class='left'>` + (replyList[i].updateDate != null ? parseTime(replyList[i].updateDate) + '(수정됨)' : parseTime(replyList[i].replyDate)) + `</small>
                                 <a href='` + replyList[i].rno + `' class='right replyModify'><span class='glyphicon glyphicon-pencil'></span>수정</a>
                                 <a href='` + replyList[i].rno + `' class='right replyDelete'><span class='glyphicon glyphicon-remove'></span>삭제</a>
                             </div>
@@ -402,6 +405,11 @@
             const rno = document.getElementById('modalRno').value;
             const replyPw = document.getElementById('modalPw').value;
 
+            if(replyPw ==='') {
+                alert('비밀번호를 확인하세요!');
+                return;
+            }
+
             const reqObj = {
                 method: 'delete',
                 headers: {
@@ -415,16 +423,15 @@
 
 
             fetch('${pageContext.request.contextPath}/reply/' + rno, reqObj)
-                .then(res => res.text())  // text로 받는다. 아래 if문
+                .then(res => res.text())  // 결과(res)를 text로 받는다. 아래 if문
                 .then(data => {
                     if(data === 'pwFail') {
                         alert('비밀번호를 확인하세요.');
-                        document.getElementById('modalPw').value = '';
-                        document.getElementById('modalPw').value.focus();
+                        document.getElementById('modalPw').value = ''; //다시써야해서 공백으로 비워주고
+                        document.getElementById('modalPw').value.focus(); //커서를 위치하게 해줌.
 
                     } else {
                         alert('정상 삭제 되었습니다.');
-                        document.getElementById('modalReply').value = '';
                         document.getElementById('modalPw').value = '';
                         //제이쿼리 문법으로 bootstrap 모달 닫아주기
                         $('#replyModal').modal('hide');
@@ -432,8 +439,42 @@
                     }
 
                 });
+            } //end delete event
+
+            //댓글 날짜 변환 함수
+            function parseTime(regDateTime) { //regDateTime 시간정보가 담겨져있는 숫자배열이 온다
+                let year, month, day, hour, minute, second;
+
+                if(regDateTime.length === 5) { //날짜 배열 5냐?
+                    [year, month, day, hour, minute] = regDateTime;
+                    second = 0;
+                } else {
+                    [year, month, day, hour, minute, second] = regDateTime;
+                }
+
+                //원하는 날짜로 객체를 생성
+                const regTime = new Date(year, month-1, day, hour, minute, second);
+                console.log(regTime);
+                const date = new Date();
+                console.log(date);
+                const gap = date.getTime() - regTime.getTime(); //현재시간-등록시간
+
+                let time;
+                if(gap < 60 * 60 * 24 * 1000) { // 1000 -> 밀리초
+                    if(gap < 60 * 60  * 1000) {  //한시간이 안 넘었다면
+                        time = '방금 전';
+                    } else {
+                        time = parseInt(gap / (1000 * 60 * 60)) + '시간 전'; //parseInt 정수로 변환
+                    }
+                } else if(gap < 60 * 60 * 24 * 30 * 1000) { // 30일이 안 지났으면
+                    time = parseInt(gap / (60 * 60 * 24 * 1000)) + '일 전';
+                } else {
+                    time = `${regTime.getFullYear()}년 ${regTime.getMonth()-1}월 ${regTime.getDate()}일`;
+                }
+                return time;    
             }
 
+            
 
 
 

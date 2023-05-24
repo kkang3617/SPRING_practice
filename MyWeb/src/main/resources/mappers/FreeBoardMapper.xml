@@ -39,7 +39,7 @@
 	</insert>
 	
 	<select id="getList" resultType="board"> <!--freeboardvo로 리턴을 해.  -->
-		SELECT * FROM freeboard
+		SELECT freeboard.*, (SELECT count(*) FROM freereply WHERE bno = freeboard.bno) AS reply_cnt FROM freeboard
 		<include refid="search" />
 		ORDER BY bno DESC
 		LIMIT #{pageStart}, #{cpp}

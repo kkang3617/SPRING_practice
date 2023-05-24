@@ -72,13 +72,13 @@ public class ReplyController {
 	}
 	
 	//댓글 삭제 요청
-	@DeleteMapping("/{rno}")
-	public String delete(@PathVariable int rno, @RequestBody ReplyVO vo) {
+	@DeleteMapping("/{rno}") //rno를 json으로 보냈으면 @pathvariable 안써도됨.
+	public String delete(@PathVariable int rno, @RequestBody ReplyVO vo) {  
 		vo.setRno(rno);
 		
 		if(service.pwCheck(vo)) {
 			service.delete(rno);
-			return ("DeleteSuccess");
+			return ("deleteSuccess");
 		} else { 
 			return "pwFail";
 		}
