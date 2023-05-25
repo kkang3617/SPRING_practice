@@ -53,6 +53,7 @@
 	<mybatis-spring:scan base-package="com.spring.myweb.freeboard.mapper"/> <!-- 해당경로에서 찾아봐~ ~~mapper -->
 	<mybatis-spring:scan base-package="com.spring.myweb.user.mapper"/>
 	<mybatis-spring:scan base-package="com.spring.myweb.reply.mapper"/>
+	<mybatis-spring:scan base-package="com.spring.myweb.snsboard.mapper"/>
 	
 </beans>
 
