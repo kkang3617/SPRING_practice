@@ -19,6 +19,6 @@ public interface ISnsBoardService {
 	SnsBoardVO getDetail(int bno); //글 하나 리턴SnsBoardVO
 	
 	//삭제
-	void delte(int bno);
+	void delete(int bno);
 	
 }

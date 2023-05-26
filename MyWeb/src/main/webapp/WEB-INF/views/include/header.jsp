@@ -22,7 +22,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="container">
-                    <div class="navbar">
+                    <div class="navbar"> 
                         <div class="navbar-header">
                             <!--data-toggle 같은 것들은 내부적으로 지원하는 반응형 API기능이므로 지우면 안됩니다-->
                             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
