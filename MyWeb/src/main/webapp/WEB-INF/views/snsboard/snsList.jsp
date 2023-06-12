@@ -205,7 +205,7 @@
 						</div>
 					</div>
 				</aside>
-				<div class="col-xs-12 col-sm-8 section-inner">
+				<div class="col-xs-12 col-sm-8 section-inner center-block">
 					<h4>게시물 만들기</h4>
 					<!-- 파일 업로드 폼입니다 -->
 					<div class="fileDiv">
